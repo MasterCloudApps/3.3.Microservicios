@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: notificationsms
+  name: notificationsms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notificationsms
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: notificationsms
+    spec:
+      securityContext:
+         runAsUser: 1000300
+      containers:
+      - image: javieraviles/notificationsms
+        name: notificationsms
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: notificationsms
+  name: notificationsms
+spec:
+  ports:
+  - protocol: TCP
+    port: 8070
+    targetPort: 8070
+  selector:
+    app: notificationsms
+  type: ClusterIP

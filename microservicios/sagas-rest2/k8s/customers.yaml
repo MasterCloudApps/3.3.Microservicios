@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: customers
+  name: customers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customers
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: customers
+    spec:
+      securityContext:
+         runAsUser: 1000300
+      containers:
+      - env:
+        - name: NOTIFICATIONSMS_URL
+          value: http://notificationsms:8070
+        - name: USE_NOTIFICATION_SERVICE
+          value: "true"
+        image: javieraviles/customers
+        name: customers
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+        securityContext:
+          allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customers
+  labels:
+    app: customers
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: customers
+  type: LoadBalancer

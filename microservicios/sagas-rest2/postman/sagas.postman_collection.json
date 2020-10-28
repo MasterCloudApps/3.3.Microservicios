@@ -1,0 +1,797 @@
+{
+	"info": {
+		"_postman_id": "95d90064-8bda-4c42-a52b-e9fc66aa2c18",
+		"name": "sagas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create valid customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ee7e4df5-2346-4ad8-8475-2ff9873bc597",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"customerId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Javier Gomez\",\n    \"credit\":\"2000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customersUrl}}/customers",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70f931e8-dc4f-42dc-9001-225f68310222",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Credit still 2000\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.credit).to.eql(2000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customersUrl}}/customers/{{customerId}}",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add credit to customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a1e48ef-4e6c-45a3-8073-0a35c71d1779",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Credit is now 3000\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.credit).to.eql(3000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"operation\":\"ADD\",\"amount\":1000}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customersUrl}}/customers/{{customerId}}",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create valid product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f723bcb-1894-4cfa-9a1d-67f8a60aee3e",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"productId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Super nice chair\",\n    \"stock\":\"20\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{productsUrl}}/products",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e0febad-ecd3-422e-957a-a1aaf995a24f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Stock still 20\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.stock).to.eql(20);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/{{productId}}",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add stock to product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33239c10-6496-4550-aeb6-ca30f64cdff5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Stock is now 30\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.stock).to.eql(30);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"operation\":\"ADD\",\"amount\":10}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{productsUrl}}/products/{{productId}}",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create valid order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6b1b563-68fb-4424-a934-acb2fd092e32",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"orderId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": {{customerId}},\n    \"productId\": {{productId}},\n    \"totalCost\": 2000,\n    \"productQuantity\":20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ordersUrl}}/orders",
+					"host": [
+						"{{ordersUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "acc8f194-707a-47e9-9b7a-cf756082d15f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Order got created successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.customerId).to.eql(pm.globals.get(\"customerId\"));",
+							"    pm.expect(jsonData.totalCost).to.eql(2000.0);",
+							"    pm.expect(jsonData.productId).to.eql(pm.globals.get(\"productId\"));",
+							"    pm.expect(jsonData.productQuantity).to.eql(20);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ordersUrl}}/orders/{{orderId}}",
+					"host": [
+						"{{ordersUrl}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get detailed order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7c7ddca-cbb0-44ed-9ad7-1e2cccb46a6e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Order got created successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.customerId).to.eql(pm.globals.get(\"customerId\"));",
+							"    pm.expect(jsonData.totalCost).to.eql(2000.0);",
+							"    pm.expect(jsonData.productId).to.eql(pm.globals.get(\"productId\"));",
+							"    pm.expect(jsonData.productQuantity).to.eql(20);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ordersUrl}}/orders/{{orderId}}",
+					"host": [
+						"{{ordersUrl}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product stock got updated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf9bace3-1c5f-48c7-be4f-21be1339809b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Stock is now 10\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.stock).to.eql(10);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/{{productId}}",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer credit got updated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b06ae1b-ac8f-4b9b-b5cf-6c214aee7722",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Credit is now  1000\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.credit).to.eql(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customersUrl}}/customers/{{customerId}}",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order expect not enough credit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "020ca737-6fcc-4a4e-9e38-b20ee2a3ffa0",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Expected error message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not enough credit\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": {{customerId}},\n    \"productId\": {{productId}},\n    \"totalCost\": 2000,\n    \"productQuantity\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ordersUrl}}/orders",
+					"host": [
+						"{{ordersUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order expect not enough stock",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fe9295b-ce00-4f7e-a2f1-e4481eaf4b28",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Expected error message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not enough stock\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": {{customerId}},\n    \"productId\": {{productId}},\n    \"totalCost\": 1,\n    \"productQuantity\":20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ordersUrl}}/orders",
+					"host": [
+						"{{ordersUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product stock is untouched",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da077d25-9154-4cb7-9a65-07f84a337e78",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Stock is now 10\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.stock).to.eql(10);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/{{productId}}",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer credit  is untouched",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "916f029b-856d-468b-af70-0eb0562bf2ea",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Credit is now  1000\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.credit).to.eql(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customersUrl}}/customers/{{customerId}}",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subtract credit to customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2324b0f5-e5b0-4e22-affb-ad08f175acd5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Credit is now 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.credit).to.eql(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"operation\":\"DEDUCT\",\"amount\":1000}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customersUrl}}/customers/{{customerId}}",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subtract stock to product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c870191-52e1-4fd2-a6a8-f6244e0ad0c5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Stock is now 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.stock).to.eql(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"operation\":\"DEDUCT\",\"amount\":10}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{productsUrl}}/products/{{productId}}",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe151755-79a9-4708-8174-a88746d3a060",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{customersUrl}}/customers/{{customerId}}",
+					"host": [
+						"{{customersUrl}}"
+					],
+					"path": [
+						"customers",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bff70a7-6af5-41af-88cb-9400cab76465",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/{{productId}}",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f21a0c10-3700-4e7f-b858-8b69dd4b6e68",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ordersUrl}}/orders/{{orderId}}",
+					"host": [
+						"{{ordersUrl}}"
+					],
+					"path": [
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
