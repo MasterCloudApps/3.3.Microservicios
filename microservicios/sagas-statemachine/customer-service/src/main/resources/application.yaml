@@ -1,0 +1,50 @@
+    
+server:
+  port: 8082
+  
+spring:
+  application:
+    name: customer-service
+
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3306/test
+    testWhileIdle: true
+    validationQuery: SELECT 1
+
+    
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          autoAddPartitions: true
+          minPartitionCount: 3
+      bindings:
+        credit-order-response:
+          destination: credit-order-response
+          contentType: application/json
+          group: ordering
+          producer:
+            partition-count: 3
+        credit-order-request:
+          destination: credit-order-request
+          contentType: application/json
+          group: ordering
+          consumer:
+            partitioned: true
+            concurrency: 3
+            auto.offset.reset: earliest
+
+  kafka:
+    bootstrap-servers: localhost:9092 

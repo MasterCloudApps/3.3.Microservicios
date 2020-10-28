@@ -1,0 +1,140 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Practica-Microservices",
+		"_postman_id": "c6d83455-aed3-12d1-cdca-686aa484fbea",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create customer",
+			"request": {
+				"url": "http://localhost:9090/api/v1/customers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46NGRtMW5TM2NyM3Qu",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Albert sanchez\",\n\t\"creditLimit\": 1500\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create product in inventory",
+			"request": {
+				"url": "http://localhost:9090/api/v1/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\":\"LG 32LM6300PLA 42\",\n   \"reference\": \"PROD001\",\n   \"stockQuantity\": 150\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get product",
+			"request": {
+				"url": "http://localhost:9090/api/v1/products/25cecfde-7d43-4a15-8342-1a91640e137f",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "update product",
+			"request": {
+				"url": "http://localhost:9090/api/v1/products",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"id\": \"25cecfde-7d43-4a15-8342-1a91640e137f\",\n   \"name\":\"LG 32LM6300PLA 32\",\n   \"reference\": \"PROD002\",\n   \"stockQuantity\": 15\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get customer info",
+			"request": {
+				"url": "http://localhost:9090/api/v1/customers/46746687-ad25-4937-9e60-6001467ba9ba",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"request": {
+				"url": "http://localhost:9090/api/v1/orders",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"46746687-ad25-4937-9e60-6001467ba9ba\",\n\t\"productName\" : \"LG 32LM6300PLA 32\",\n\t\"productReference\": \"PROD001\",\n\t\"quantity\": 40\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get order state",
+			"request": {
+				"url": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get complete order",
+			"request": {
+				"url": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

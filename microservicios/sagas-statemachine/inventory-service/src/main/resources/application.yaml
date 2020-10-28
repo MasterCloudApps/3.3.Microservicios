@@ -1,0 +1,59 @@
+    
+server:
+  port: 8083
+
+
+spring:
+  application:
+    name: inventory-service
+    
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3306/test
+    testWhileIdle: true
+    validationQuery: SELECT 1
+
+    
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          autoAddPartitions: true
+          minPartitionCount: 3
+      bindings:
+        allocate-order-response:
+          destination: allocate-order-response
+          contentType: application/json
+          group: ordering
+          producer:
+            partition-count: 3
+        allocate-order-request:
+          destination: allocate-order-request
+          contentType: application/json
+          group: ordering
+          consumer:
+            partitioned: true
+            concurrency: 3
+            auto.offset.reset: earliest
+        deallocate-order-request:
+          destination: deallocate-order-request
+          contentType: application/json
+          group: ordering
+          consumer:
+            partitioned: true
+            concurrency: 3
+            auto.offset.reset: earliest
+            
+  kafka:
+    bootstrap-servers: localhost:9092 
