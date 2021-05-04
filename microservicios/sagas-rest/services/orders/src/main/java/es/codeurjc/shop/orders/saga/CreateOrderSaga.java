@@ -29,23 +29,17 @@ public class CreateOrderSaga {
 
 	public Order createOrder(final Order newOrder) throws JsonProcessingException {
 
-		CustomerDto customer = customers.fetchCustomer(newOrder.getCustomerId());
 		ProductDto product = products.fetchProduct(newOrder.getProductId());
 
-		if (!product.hasEnoughStock(newOrder.getProductQuantity())) {
-			throw new NotEnoughStockException();
-		}
-		
-		if (!customer.hasEnoughCredit(newOrder.getTotalCost())) {
-			throw new NotEnoughCreditException();
-		}
-		
 		products.modifyProductStock(product.getId(), OperationEnum.DEDUCT.toString(),
 				newOrder.getProductQuantity());
 		
 		try {
+
+			CustomerDto customer = customers.fetchCustomer(newOrder.getCustomerId());
 		
-			customers.modifyCustomerCredit(customer.getId(), OperationEnum.DEDUCT.toString(), newOrder.getTotalCost());
+			customers.modifyCustomerCredit(customer.getId(), OperationEnum.DEDUCT.toString(), 
+				newOrder.getTotalCost());
 
 		} catch (NotEnoughCreditException e) {
 			
