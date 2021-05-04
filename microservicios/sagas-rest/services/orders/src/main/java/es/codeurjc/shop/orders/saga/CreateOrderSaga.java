@@ -10,7 +10,6 @@ import es.codeurjc.shop.orders.dto.OperationEnum;
 import es.codeurjc.shop.orders.dto.ProductDto;
 import es.codeurjc.shop.orders.entity.Order;
 import es.codeurjc.shop.orders.exception.NotEnoughCreditException;
-import es.codeurjc.shop.orders.exception.NotEnoughStockException;
 import es.codeurjc.shop.orders.proxies.CustomersService;
 import es.codeurjc.shop.orders.proxies.ProductsService;
 import es.codeurjc.shop.orders.repository.OrderRepository;
