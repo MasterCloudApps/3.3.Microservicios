@@ -1,1 +1,4 @@
-microservicios/sagas-statemachine/.project
+.project
+.settings
+target
+.classpath
