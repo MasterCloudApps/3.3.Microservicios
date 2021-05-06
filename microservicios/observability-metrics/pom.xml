@@ -9,7 +9,7 @@
 		<version>2.3.3.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.javieraviles</groupId>
+	<groupId>es.codeurjc.mca.observability</groupId>
 	<artifactId>metrics</artifactId>
 	<version>1.0.0</version>
 	<name>metrics</name>

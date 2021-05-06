@@ -1,4 +1,4 @@
-package com.javieraviles.health;
+package es.codeurjc.mca.observability.healthcheck.health;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;

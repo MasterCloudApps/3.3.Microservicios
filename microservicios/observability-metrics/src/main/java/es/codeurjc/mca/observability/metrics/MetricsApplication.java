@@ -1,4 +1,4 @@
-package com.javieraviles.metrics;
+package es.codeurjc.mca.observability.metrics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
