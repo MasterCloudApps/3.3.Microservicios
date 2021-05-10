@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -55,5 +56,10 @@ public class Application {
         return RouterFunctions.route(
         		GET("/detailedorders/{orderId}"), 
         		orderHandlers::getDetailedOrder);
+    }
+
+    @Bean
+    public WebClient.Builder webClient(){
+        return WebClient.builder();
     }
 }

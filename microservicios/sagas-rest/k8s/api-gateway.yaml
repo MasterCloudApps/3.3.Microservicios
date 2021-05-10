@@ -2,47 +2,49 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: customers
-  name: customers
+    app: api-gateway
+  name: api-gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: customers
+      app: api-gateway
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: customers
+        app: api-gateway
     spec:
       securityContext:
         runAsUser: 1000300
       containers:
-        - name: customers
-          image: codeurjc/customers
+        - name: api-gateway
+          image: codeurjc/api-gateway
           imagePullPolicy: IfNotPresent
           env:
-            - name: NOTIFICATIONS_URL
-              value: http://notifications:8070
-            - name: USE_NOTIFICATION_SERVICE
-              value: "true"
+            - name: CUSTOMERS_URL
+              value: http://customers:8080/
+            - name: PRODUCTS_URL
+              value: http://products:8060/
+            - name: ORDERS_URL
+              value: http://orders:8090/
             - name: SPRING_ZIPKIN_BASEURL
               value: "http://zipkin:9411"
           ports:
-            - containerPort: 8080
+            - containerPort: 8050
           securityContext:
             allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: customers
+  name: api-gateway
   labels:
-    app: customers
+    app: api-gateway
 spec:
   ports:
-    - port: 8080
+    - port: 8050
   selector:
-    app: customers
+    app: api-gateway
   type: ClusterIP

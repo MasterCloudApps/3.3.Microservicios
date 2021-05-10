@@ -17,20 +17,22 @@ spec:
         app: products
     spec:
       securityContext:
-         runAsUser: 1000300
+        runAsUser: 1000300
       containers:
-      - env:
-        - name: NOTIFICATIONSMS_URL
-          value: http://notifications:8070
-        - name: USE_NOTIFICATION_SERVICE
-          value: "true"
-        image: javieraviles/products
-        name: products
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 8080
-        securityContext:
-          allowPrivilegeEscalation: false
+        - name: products
+          image: codeurjc/products
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NOTIFICATIONS_URL
+              value: http://notifications:8070
+            - name: USE_NOTIFICATION_SERVICE
+              value: "true"
+            - name: SPRING_ZIPKIN_BASEURL
+              value: "http://zipkin:9411"
+          ports:
+            - containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
@@ -40,9 +42,7 @@ metadata:
     app: products
 spec:
   ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
+    - port: 8060
   selector:
     app: products
-  type: LoadBalancer
+  type: ClusterIP

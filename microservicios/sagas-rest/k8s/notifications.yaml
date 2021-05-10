@@ -2,40 +2,41 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: notificationsms
-  name: notificationsms
+    app: notifications
+  name: notifications
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: notificationsms
+      app: notifications
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: notificationsms
+        app: notifications
     spec:
       securityContext:
-         runAsUser: 1000300
+        runAsUser: 1000300
       containers:
-      - image: javieraviles/notificationsms
-        name: notificationsms
-        imagePullPolicy: Always
-        securityContext:
-          allowPrivilegeEscalation: false
+        - name: notifications
+          image: codeurjc/notifications
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SPRING_ZIPKIN_BASEURL
+              value: "http://zipkin:9411"
+          securityContext:
+            allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: notificationsms
-  name: notificationsms
+    app: notifications
+  name: notifications
 spec:
   ports:
-  - protocol: TCP
-    port: 8070
-    targetPort: 8070
+    - port: 8070
   selector:
-    app: notificationsms
+    app: notifications
   type: ClusterIP

@@ -1,5 +1,6 @@
 package es.codeurjc.shop.apigateway.proxies;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -12,10 +13,13 @@ public class OrdersService {
 
 	@Value(value = "${orders.url}")
 	private String ordersBaseUrl;
+
+    @Autowired
+    private WebClient.Builder builder;
 	
     public Mono<Order> fetchOrder(long orderId) {
         
-    	Mono<ClientResponse> response = WebClient.create(ordersBaseUrl)
+    	Mono<ClientResponse> response = builder.baseUrl(ordersBaseUrl).build()
                 .get()
                 .uri("/orders/{orderId}", orderId)
                 .exchange();

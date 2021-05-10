@@ -14,7 +14,7 @@ import es.codeurjc.shop.customers.dto.NotificationDto;
 @Component
 public class NotificationsMicroserviceClient {
 
-	@Value(value = "${notificationsms.url}")
+	@Value(value = "${notifications.url}")
 	private String notificationsMsBaseUri;
 
 	@Autowired
