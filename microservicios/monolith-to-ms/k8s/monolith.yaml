@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: monolith
+  name: monolith
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monolith
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: monolith
+    spec:
+      securityContext:
+         runAsUser: 1000300
+      containers:
+      - env:
+        - name: NOTIFICATIONSMS_URL
+          value: http://notificationsms:8070
+        - name: USE_NOTIFICATION_SERVICE
+          value: "true"
+        image: javieraviles/monolith
+        name: monolith
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+        securityContext:
+          allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monolith
+  labels:
+    app: monolith
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: monolith
+  type: LoadBalancer
