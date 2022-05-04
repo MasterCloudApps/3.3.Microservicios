@@ -1,0 +1,53 @@
+version: '3.9'
+services: 
+
+  2-parallel-run-monolith:
+    image: 2_parallel_run_monolith
+    container_name: 'example_2_step_2_parallel_run_monolith'
+    restart: on-failure
+    build: 
+      context: ./2_parallel_run_monolith
+      dockerfile: ./Dockerfile
+    ports: 
+      - 8083:8083
+    networks:
+      - app-network
+    environment:
+      - USER_NOTIFICATION_MS_HOST=2-parallel-run-notification-ms
+      - USER_NOTIFICATION_MS_PORT=8084
+    depends_on: 
+      - 2-parallel-run-notification-ms
+  
+  2-parallel-run-notification-ms:
+    image: 2_parallel_run_notification_ms
+    container_name: 'example_2_step_2_parallel_run_notification_ms'
+    restart: on-failure
+    build: 
+      context: ./2_parallel_run_notification_ms
+      dockerfile: ./Dockerfile
+    ports: 
+      - 8084:8084
+    networks:
+      - app-network
+  
+  diferencia:
+    image: lordofthejars/diferencia:0.6.0
+    container_name: diferencia
+    ports:
+      - 3000:8080
+      - 3001:8081
+      - 3002:8082
+    command:
+      --primary '2-parallel-run-monolith:8083'
+      -c '2-parallel-run-notification-ms:8084'
+    depends_on: 
+      - 2-parallel-run-monolith
+    networks:
+      - app-network
+    links:
+      - 2-parallel-run-notification-ms
+      - 2-parallel-run-monolith
+    
+networks:
+  app-network:
+    driver: bridge

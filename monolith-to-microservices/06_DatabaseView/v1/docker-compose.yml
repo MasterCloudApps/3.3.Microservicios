@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  monolith:
+    image: juaneb/database_view_monolith_v1
+    ports:
+      - 8080:8080
+    environment:
+      # Enviroment variables for connect to MySQL
+      - MYSQL_HOST=mysql
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  loyaltyservice:
+    image: juaneb/database_view_loyalty_v1
+    ports:
+      - 8090:8090
+    environment:
+      - MYSQL_HOST=mysql
+    restart: on-failure
+
+  mysql:
+    image: mysql:8.0.25
+    ports:
+      - 3306:3306
+    environment:
+      # Enviroment variables for securize MySQL and create default Database
+      - MYSQL_DATABASE=monolith
+      - MYSQL_ROOT_PASSWORD=pass
+    volumes:
+      - ./mysql_db:/var/lib/mysql
+    restart: always

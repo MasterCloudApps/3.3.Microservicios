@@ -1,0 +1,710 @@
+{
+	"info": {
+		"_postman_id": "1a947b04-65f7-4f59-a189-8a7c6cba8a54",
+		"name": "TFM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Monolith-to-Microservices-DB-Examples",
+			"item": [
+				{
+					"name": "Database_view",
+					"item": [
+						{
+							"name": "V1",
+							"item": [
+								{
+									"name": "Monolith: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								},
+								{
+									"name": "Loyalty Service: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "V2",
+							"item": [
+								{
+									"name": "Monolith: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customers/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Loyalty Service: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Database As A Service",
+					"item": [
+						{
+							"name": "V1",
+							"item": [
+								{
+									"name": "Orders: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								},
+								{
+									"name": "External Consumer: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "V2",
+							"item": [
+								{
+									"name": "External Service: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customers/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Order Service: Get all orders",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/orders/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"orders",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "External Service: Add customer",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {        \r\n        \"dateOrder\": \"26-09-2022\",\r\n        \"purchaser\": \"David Rey\",\r\n        \"address\": \"Plaza del acebo\",\r\n        \"totalPrice\": \"35\"\r\n    },",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8090/api/v1/externalConsumer/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"externalConsumer",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Loyalty Service: Get all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								},
+								{
+									"name": "New Request",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "AggregateExposingMonolith",
+					"item": [
+						{
+							"name": "V1",
+							"item": [
+								{
+									"name": "Employee data: Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Employee Data: Get a employee by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invoice Service: Get all employees Copy",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api/v1/invoice/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"invoice",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invoice Service: Get a employee by id Copy",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api/v1/invoice/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"invoice",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "V2",
+							"item": [
+								{
+									"name": "Employee service: Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Employee Service: Get a employee by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Monolith: Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api/v1/monolith/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"monolith",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Monolith: Get a employee by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api/v1/monolith/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"monolith",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Catalog: Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api/v1/monolith/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"monolith",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Catalog: Get a employee by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8100/api/v1/catalog/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8100",
+											"path": [
+												"api",
+												"v1",
+												"catalog",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Spli Table",
+					"item": [
+						{
+							"name": "V1",
+							"item": [
+								{
+									"name": "Monolith - Customer Controller : Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customer/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customer",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Monolith - Finance Controller : Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customer/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customer",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Monolith - Customer Controller : Change Status",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{   \r\n    \"name\": \"Juaneb\",\r\n    \"status\":\"SUSPENDED\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customer/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customer",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Monolith - Finance Controller : Change Status",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{   \r\n    \"name\": \"Juaneb\",\r\n    \"status\":\"SUSPENDED\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customer/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customer",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "V2",
+							"item": [
+								{
+									"name": "Customer service: Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Customer Service: Get a employee by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Customer Service : Change Status",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{   \r\n    \"name\": \"Alice\",\r\n    \"status\":\"CANCEL\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/customer/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"customer",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Finance service: Get all employees",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/employ/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"employ",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Finance Service: Get a employee by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api/v1/finance/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"finance",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Finance Service : Change Status",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{   \r\n    \"name\": \"Juaneb\",\r\n    \"status\":\"UPGRADE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8090/api/v1/finance/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"v1",
+												"finance",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

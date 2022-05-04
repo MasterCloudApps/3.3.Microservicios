@@ -1,0 +1,90 @@
+version: '3.9'
+services:
+  mysqlproducer:
+    image: mysql:8.0.25
+    ports:
+      - 3306:3306
+    environment:
+      # Enviroment variables for securize MySQL and create default Database
+      - MYSQL_DATABASE=order
+      - MYSQL_ROOT_PASSWORD=pass
+    volumes:
+      - ./mysql_db_producer:/var/lib/mysqlproducer
+    restart: always
+
+  zookeeper:
+    image: debezium/zookeeper:1.7
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+    restart: on-failure
+
+  kafka:
+    image: debezium/kafka:1.7
+    ports:
+      - 9092:9092
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - HOST_NAME=kafka
+    depends_on:
+      - zookeeper
+    restart: on-failure
+
+  mysqlsuscriber:
+    image: mysql:8.0.25
+    ports:
+      - 3307:3306
+    environment:
+      # Enviroment variables for securize MySQL and create default Database
+      - MYSQL_DATABASE=order
+      - MYSQL_ROOT_PASSWORD=pass
+    volumes:
+      - ./mysql_db_suscriber:/var/lib/mysqlsuscriber
+    restart: always
+
+  connector:
+    image: debezium/connect:1.7
+    ports:
+      - 8083:8083
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=2
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+    depends_on:
+      - mysqlproducer
+      - mysqlsuscriber
+      - zookeeper
+      - kafka
+    restart: on-failure
+
+  order:
+    image: juaneb/database_as_a_service_order_v2
+    ports:
+      - 8080:8080
+    environment:
+      # Enviroment variables for connect to MySQL
+      - MYSQL_HOST=mysqlproducer
+    depends_on:
+      - mysqlproducer
+      - mysqlsuscriber
+      - zookeeper
+      - kafka
+    restart: on-failure
+
+  externalconsumer:
+    image: juaneb/database_as_a_service_external_consumer_v2
+    ports:
+      - 8090:8090
+    environment:
+      - MYSQL_HOST=mysqlsuscriber
+      - HOST=order
+      - BROKER_HOST=kafka
+    depends_on:
+      - mysqlproducer
+      - mysqlsuscriber
+      - zookeeper
+      - kafka
+    restart: on-failure

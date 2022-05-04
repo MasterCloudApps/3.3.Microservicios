@@ -1,0 +1,61 @@
+version: '3.9'
+services: 
+
+  2-parallel-run-monolith:
+    image: 2_parallel_run_monolith
+    container_name: 'example_3_step_2_parallel_run_monolith'
+    restart: on-failure
+    build: 
+      context: ./2_parallel_run_monolith
+      dockerfile: ./Dockerfile
+    ports: 
+      - 8083:8083
+    networks:
+      - app-network
+    environment:
+      - USER_NOTIFICATION_MS_HOST=2-parallel-run-notification-ms
+      - USER_NOTIFICATION_MS_PORT=8084
+    depends_on: 
+      - 2-parallel-run-notification-ms
+  
+  2-parallel-run-notification-ms:
+    image: 2_parallel_run_notification_ms
+    container_name: 'example_3_step_2_parallel_run_notification_ms'
+    restart: on-failure
+    build: 
+      context: ./2_parallel_run_notification_ms
+      dockerfile: ./Dockerfile
+    ports: 
+      - 8084:8084
+    networks:
+      - app-network
+  
+  diffy:
+    image: diffy/diffy
+    container_name: diffy
+    ports:
+      - 3000:8888
+      - 3001:8880
+    command: >
+      -master.primary='2-parallel-run-monolith:8083'
+      -master.secondary='2-parallel-run-monolith:8083'
+      -candidate='2-parallel-run-notification-ms:8084'
+      -service.protocol='http'
+      -serviceName='Diffy Testing Service'
+      -proxy.port=:8880
+      -admin.port=:8881
+      -http.port=:8888
+      -rootUrl='localhost:8888'
+      -allowHttpSideEffects=true
+      -summary.email=''
+    depends_on: 
+      - 2-parallel-run-monolith
+    networks:
+      - app-network
+    links:
+      - 2-parallel-run-notification-ms
+      - 2-parallel-run-monolith
+    
+networks:
+  app-network:
+    driver: bridge
