@@ -26,10 +26,12 @@ public class OrderHandlers {
 	}
 
 	public Mono<ServerResponse> getOrderDetails(ServerRequest serverRequest) {
+
 		final String orderId = serverRequest.pathVariable("orderId");
-		final String productId = serverRequest.pathVariable("productId");
+		
 		Mono<OrderInfo> orderInfo = orderService.findOrderById(orderId);
-		Mono<ProductInfo> productInfo = productService.findProductById(productId);
+
+		Mono<ProductInfo> productInfo = orderInfo.flatMap(o -> productService.findProductById(o.getProductId()));			
 
 		Mono<Tuple2<OrderInfo, ProductInfo>> combined = Mono.zip(orderInfo, productInfo);
 

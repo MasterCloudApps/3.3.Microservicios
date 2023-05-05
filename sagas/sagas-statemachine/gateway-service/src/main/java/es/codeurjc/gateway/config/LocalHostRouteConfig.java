@@ -36,7 +36,7 @@ public class LocalHostRouteConfig {
     
     @Bean
     public RouterFunction<ServerResponse> orderHandlerRouting(OrderHandlers orderHandlers) {
-      return RouterFunctions.route(GET("/orders/{orderId}/products/{productId}"), orderHandlers::getOrderDetails);
+      return RouterFunctions.route(GET("/api/v1/ordersdetails/{orderId}"), orderHandlers::getOrderDetails);
     }
 
     @Bean

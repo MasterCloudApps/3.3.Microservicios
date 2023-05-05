@@ -1,138 +1,220 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "8c5dc51c-6d36-4c6a-b96f-fb02eaf814ec",
 		"name": "Practica-Microservices",
-		"_postman_id": "c6d83455-aed3-12d1-cdca-686aa484fbea",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24851696"
 	},
 	"item": [
 		{
 			"name": "create customer",
 			"request": {
-				"url": "http://localhost:9090/api/v1/customers",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					},
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46NGRtMW5TM2NyM3Qu",
-						"description": ""
+						"value": "Basic YWRtaW46NGRtMW5TM2NyM3Qu"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"name\":\"Albert sanchez\",\n\t\"creditLimit\": 1500\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "create product in inventory",
 			"request": {
-				"url": "http://localhost:9090/api/v1/products",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n   \"name\":\"LG 32LM6300PLA 42\",\n   \"reference\": \"PROD001\",\n   \"stockQuantity\": 150\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "get product",
 			"request": {
-				"url": "http://localhost:9090/api/v1/products/25cecfde-7d43-4a15-8342-1a91640e137f",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products/7443f6de-9538-4dab-888c-fc35552cf954",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"7443f6de-9538-4dab-888c-fc35552cf954"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "update product",
 			"request": {
-				"url": "http://localhost:9090/api/v1/products",
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n   \"id\": \"25cecfde-7d43-4a15-8342-1a91640e137f\",\n   \"name\":\"LG 32LM6300PLA 32\",\n   \"reference\": \"PROD002\",\n   \"stockQuantity\": 15\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "get customer info",
 			"request": {
-				"url": "http://localhost:9090/api/v1/customers/46746687-ad25-4937-9e60-6001467ba9ba",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/customers/3ee243d4-e69b-4416-a0a9-2a99f06bf8b4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"3ee243d4-e69b-4416-a0a9-2a99f06bf8b4"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "create order",
 			"request": {
-				"url": "http://localhost:9090/api/v1/orders",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"46746687-ad25-4937-9e60-6001467ba9ba\",\n\t\"productName\" : \"LG 32LM6300PLA 32\",\n\t\"productReference\": \"PROD001\",\n\t\"quantity\": 40\n}"
+					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"4eb901ec-b823-403c-97e6-c38380cb36ff\",\n\t\"productId\" : \"b50d7177-8b25-4a90-980e-e05db03bfb5a\",\n\t\"quantity\": 40\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "get order state",
 			"request": {
-				"url": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/orders/b6e8a57f-0774-47b8-8345-03c2d0f43994",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"b6e8a57f-0774-47b8-8345-03c2d0f43994"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "get complete order",
 			"request": {
-				"url": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:9090/api/v1/ordersdetails/b6e8a57f-0774-47b8-8345-03c2d0f43994",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"ordersdetails",
+						"b6e8a57f-0774-47b8-8345-03c2d0f43994"
+					]
+				}
 			},
 			"response": []
 		}

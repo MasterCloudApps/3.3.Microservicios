@@ -15,9 +15,8 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
 		return new OrderDto.Builder()
 				           .withId(order.getId())
 				           .withState(order.getState())
-				           .withName(order.getName())
+				           .withProductId(order.getProductId())
 				           .withQuantity(order.getQuantity())
-				           .withReference(order.getReference())
 				           .build();
 	}
 

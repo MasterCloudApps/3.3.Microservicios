@@ -37,9 +37,8 @@ public class OrderService {
 				                     .withId(null)
 				                     .withOrderDetails(orderDetails)
 				                     .withState(OrderStatusEnum.NEW)
-				                     .withName(createOrderRequest.getProductName())
+				                     .withProductId(createOrderRequest.getProductId())
 				                     .withQuantity(createOrderRequest.getQuantity())
-				                     .withReference(createOrderRequest.getProductReference())
 				                     .build();
 		
 		final Order orderSaved = orderManager.newOrder(order);
@@ -53,6 +52,6 @@ public class OrderService {
 		   throw new EntityNotFoundException();
 		}
 		final Order order = optOrder.get();
-		return new GetOrderResponse(order.getId(), order.getState(), order.getRejectionReason());
+		return new GetOrderResponse(order.getId(), order.getProductId(), order.getState(), order.getRejectionReason());
 	}
 }

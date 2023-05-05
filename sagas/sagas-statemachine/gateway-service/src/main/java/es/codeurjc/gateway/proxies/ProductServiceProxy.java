@@ -25,7 +25,7 @@ public class ProductServiceProxy {
 
 	public Mono<ProductInfo> findProductById(String productId) {
 		Mono<ClientResponse> response = client.get()
-				.uri(productServiceUrl + "/products/{productId}", productId).exchange();
+				.uri(productServiceUrl + "/api/v1/products/{productId}", productId).exchange();
 		return response.flatMap(resp -> {
 			switch (resp.statusCode()) {
 			case OK:

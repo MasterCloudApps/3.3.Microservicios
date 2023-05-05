@@ -8,11 +8,16 @@ public class OrderInfo {
 
 	private String orderId;
 	private String state;
+	private String productId;
 
-	public OrderInfo(String orderId, String state) {
+	public OrderInfo(){
+		
+	}
+
+	public OrderInfo(String orderId, String state, String productId) {
 		this.orderId = orderId;
 		this.state = state;
-
+		this.productId = productId;
 	}
 
 	public String getOrderId() {
@@ -29,6 +34,14 @@ public class OrderInfo {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getProductId(){
+		return this.productId;
+	}
+
+	public void setProductId(String productId){
+		this.productId = productId;
 	}
 
 	@Override

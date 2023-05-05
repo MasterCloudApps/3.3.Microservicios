@@ -10,6 +10,10 @@ public class ProductInfo {
 	private String reference;
 	private Integer stockQuantity;
 
+	public ProductInfo(){
+		
+	}
+
 	public ProductInfo(String name, String reference, Integer stockQuantity) {
 		super();
 		this.name = name;

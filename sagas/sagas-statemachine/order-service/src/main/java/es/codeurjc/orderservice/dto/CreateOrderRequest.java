@@ -8,8 +8,7 @@ public class CreateOrderRequest {
 	
   private BigDecimal orderTotal;
   private UUID customerId;
-  private String productName;
-  private String productReference;
+  private String productId;
   private Integer quantity;
   
   public BigDecimal getOrderTotal() {
@@ -20,12 +19,8 @@ public class CreateOrderRequest {
       return customerId;
   }
 
-  public String getProductName() {
-      return productName;
-  }
-
-  public String getProductReference() {
-      return productReference;
+  public String getProductId() {
+      return productId;
   }
 
   public Integer getQuantity() {
@@ -50,13 +45,8 @@ public class CreateOrderRequest {
           return this;
       }
 
-      public Builder withProductName(String value) {
-          object.productName = value;
-          return this;
-      }
-
-      public Builder withProductReference(String value) {
-          object.productReference = value;
+      public Builder withProductId(String value) {
+          object.productId = value;
           return this;
       }
 

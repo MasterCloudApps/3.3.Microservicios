@@ -12,11 +12,8 @@ public class OrderDto {
     @JsonProperty("id")
     private UUID id;
     
-    @JsonProperty("name")
-    private String name;
-    
-    @JsonProperty("reference")
-    private String reference;
+    @JsonProperty("productId")
+    private String productId;
     
     @JsonProperty("quantity")
     private Integer quantity;
@@ -28,18 +25,14 @@ public class OrderDto {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getProductId() {
+        return productId;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
     
-    public String getReference() {
-		return reference;
-	}
-
     public OrderStatusEnum getState() {
         return state;
     }
@@ -57,13 +50,8 @@ public class OrderDto {
             return this;
         }
         
-        public Builder withName(String value) {
-            object.name = value;
-            return this;
-        }
-
-        public Builder withReference(String value) {
-            object.reference = value;
+        public Builder withProductId(String value) {
+            object.productId = value;
             return this;
         }
         

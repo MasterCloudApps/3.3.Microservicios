@@ -40,9 +40,7 @@ public class Order {
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false )
     private UUID id;
 
-    private String name;
-    
-    private String reference;
+    private String productId;
     
     @JsonProperty("quantity")
     private Integer quantity;
@@ -94,17 +92,13 @@ public class Order {
         return orderDetails;
     }
 
-    public String getName() {
-        return name;
+    public String getProductId() {
+        return productId;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
-    
-    public String getReference() {
-		return reference;
-	}
     
     public RejectionReasonEnum getRejectionReason() {
         return rejectionReason;
@@ -138,16 +132,11 @@ public class Order {
             return this;
         }
         
-        public Builder withName(String value) {
-            object.name = value;
+        public Builder withProductId(String value) {
+            object.productId = value;
             return this;
         }
 
-        public Builder withReference(String value) {
-            object.reference = value;
-            return this;
-        }
-        
         public Builder withQuantity(Integer value) {
             object.quantity = value;
             return this;
