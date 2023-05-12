@@ -34,9 +34,9 @@ public class UserProjection {
     @EventHandler
     public void on(BikeReturnedEvent event) {
         repository.findUserInfoByBikeRented(event.getBikeId())
-                .ifPresent(bikeInfo -> {
-                    bikeInfo.setBikeRented(null);
-                    repository.save(bikeInfo);
+                .ifPresent(userInfo -> {
+                    userInfo.setBikeRented(null);
+                    repository.save(userInfo);
                 });
     }
 
